@@ -1,27 +1,28 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06102e">
-<meta name="description" content="拿著手機跳起來，帶小人環島台灣。跳得愈高，走得愈快。">
+<meta name="description" content="Hold your phone and jump to walk around Taiwan. Race friends live on their own phones.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="跳跳環島">
+<meta name="apple-mobile-web-app-title" content="Hop Taiwan">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>跳跳環島</title>
+<title>Hop Around Taiwan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme:dark;
   --night:#06102e; --ink:#0a1638; --mint:#4dffb0; --ice:#38d9e8; --violet:#a46bff;
   --sun:#ffc933; --coral:#ff5a5f; --text:#f2fff8; --muted:#b6cfd8;
-  --font:"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  --font:"Fredoka","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --display:"Bagel Fat One","Fredoka","Avenir Next",system-ui,sans-serif;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -43,7 +44,7 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
 #top{top:0;padding-top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;align-items:flex-start;justify-content:space-between}
 #bottom{bottom:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px);display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:end}
 .off{opacity:0}
-#scoreV{font-size:40px;line-height:1;font-variant-numeric:tabular-nums;color:var(--sun);text-shadow:0 2px 0 var(--ink)}
+#scoreV{font-family:var(--display);font-size:38px;line-height:1;font-variant-numeric:tabular-nums;color:var(--sun);text-shadow:0 2px 0 var(--ink)}
 #next{font-size:15px;margin-top:6px;color:var(--text);text-shadow:0 1px 3px var(--ink)}
 .icons{display:flex;gap:8px;pointer-events:auto}
 .icon{width:44px;height:44px;border-radius:50%;background:#0a163899;display:grid;place-items:center}
@@ -57,7 +58,7 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
   background:linear-gradient(90deg,var(--ice),var(--mint) 55%,var(--sun))}
 
 /* Arrival note */
-#toast{position:fixed;z-index:3;left:50%;top:calc(env(safe-area-inset-top,0px) + 104px);transform:translate(-50%,-12px);
+#toast{position:fixed;z-index:7;left:50%;top:calc(env(safe-area-inset-top,0px) + 104px);transform:translate(-50%,-12px);
   max-width:min(88vw,380px);width:max-content;padding:9px 16px;border-radius:20px 20px 20px 6px;background:var(--text);color:var(--ink);
   font-size:16px;line-height:1.4;text-align:center;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
@@ -67,22 +68,22 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
   padding:calc(env(safe-area-inset-top,0px) + 22px) 24px calc(env(safe-area-inset-bottom,0px) + 22px)}
 #start{justify-content:space-between;
   background:linear-gradient(180deg,#06102e00 42%,#06102edd 62%,#06102e)}
-#start h1{margin:0;font-weight:400;font-size:clamp(50px,15.5vw,76px);line-height:1;letter-spacing:.04em;
+#start h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(46px,14vw,72px);line-height:.98;
   color:var(--text);text-shadow:0 3px 0 var(--ink),0 0 26px #4dffb080}
 .lead{margin:0 0 6px;font-size:18px;line-height:1.55;max-width:32em;text-wrap:pretty}
 .safe{margin:0 0 16px;font-size:15px;line-height:1.5;color:var(--muted);max-width:32em}
 .go{display:block;width:100%;max-width:420px;min-height:60px;padding:12px 20px;font-size:23px;border-radius:30px;
   background:var(--sun);color:var(--ink);box-shadow:0 5px 0 #b98400;transition:transform .08s,box-shadow .08s}
 .go:active{transform:translateY(4px);box-shadow:0 1px 0 #b98400}
-.alt{display:block;min-height:46px;padding:10px 4px;margin-top:8px;font-size:16px;color:var(--text);text-decoration:underline;text-underline-offset:4px}
+.alt{display:block;min-height:44px;padding:9px 4px;margin-top:4px;font-size:16px;color:var(--text);text-decoration:underline;text-underline-offset:4px}
 .foot{align-self:stretch}
 
 #count{justify-content:center;align-items:center;pointer-events:none;background:none}
-#countV{font-size:120px;line-height:1;color:var(--text);text-shadow:0 4px 0 var(--ink),0 0 30px var(--mint)}
+#countV{font-family:var(--display);font-size:120px;line-height:1;color:var(--text);text-shadow:0 4px 0 var(--ink),0 0 30px var(--mint)}
 #countH{font-size:18px;margin-top:10px;text-shadow:0 1px 4px var(--ink)}
 
 #pause{justify-content:center;align-items:center;gap:6px;background:#06102ee0;text-align:center}
-#pause h2{font-weight:400;font-size:34px;margin:0 0 16px}
+#pause h2{font-family:var(--display);font-weight:400;font-size:34px;margin:0 0 16px}
 #pause .alt{margin-top:6px}
 
 #result{justify-content:flex-end;background:none;pointer-events:none}
@@ -90,14 +91,51 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
   padding:18px 22px 20px;border-radius:28px;background:#0a1638ec;box-shadow:inset 0 0 0 2px #4dffb066;
   animation:rise .45s cubic-bezier(.2,1.3,.4,1) both}
 @keyframes rise{from{transform:translateY(60px);opacity:0}}
-.sheet h2{font-weight:400;margin:0;font-size:26px;text-align:center}
-#finalV{font-size:60px;line-height:1.1;text-align:center;color:var(--sun);font-variant-numeric:tabular-nums}
+.sheet h2{font-family:var(--display);font-weight:400;margin:0;font-size:26px;text-align:center}
+#finalV{font-family:var(--display);font-size:56px;line-height:1.1;text-align:center;color:var(--sun);font-variant-numeric:tabular-nums}
 #rank{text-align:center;font-size:16px;color:var(--mint);margin-bottom:10px}
 dl{display:grid;grid-template-columns:1fr auto;gap:5px 16px;margin:0 0 12px;font-size:16px}
 dt{color:var(--muted)}dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 #again{text-align:center;font-size:19px;margin:0 0 10px}
 .sheet .go{margin:0 auto}
 .sheet .alt{margin:6px auto 0}
+.ghost{display:block;width:100%;max-width:420px;min-height:54px;margin-top:12px;padding:10px 20px;font-size:20px;border-radius:27px;
+  background:#0a1638b3;color:var(--text);box-shadow:inset 0 0 0 2px var(--mint)}
+.ghost:disabled,.go:disabled{opacity:.5;cursor:default}
+
+/* Live race standings */
+#board{position:fixed;z-index:2;right:max(12px,env(safe-area-inset-right,0px));width:min(46vw,186px);margin:0;padding:0;list-style:none;pointer-events:none}
+#board li{display:grid;grid-template-columns:14px 12px 1fr auto;gap:5px;align-items:center;padding:2px 8px;font-size:14px;line-height:1.35;
+  border-radius:11px;font-variant-numeric:tabular-nums;text-shadow:0 1px 3px var(--ink)}
+#board li.me{background:#0a1638cc}
+#board li.gone{opacity:.45}
+.dot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 0 1.5px var(--ink)}
+.nm{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* Race room */
+#race{background:#06102ef0;overflow:auto;touch-action:pan-y;align-items:center;gap:4px}
+.pane{width:100%;max-width:420px;margin:auto 0}
+#race h2{font-family:var(--display);font-weight:400;font-size:38px;margin:0 0 14px}
+#race label{display:block;font-size:16px;color:var(--muted);margin:12px 0 5px}
+#race input[type=text]{width:100%;height:54px;padding:0 16px;font:inherit;font-size:19px;color:var(--text);background:#0a1638;border:2px solid #4dffb066;
+  border-radius:16px;-webkit-user-select:text;user-select:text;touch-action:manipulation}
+#race input[type=text]:focus{outline:3px solid var(--sun);outline-offset:1px}
+#codeI{text-transform:uppercase;letter-spacing:.2em}
+#race .err{min-height:24px;margin:10px 0 0;color:#ffb3b5;font-size:16px;line-height:1.4}
+.codeV{font-family:var(--display);font-size:62px;line-height:1.05;letter-spacing:.08em;color:var(--sun)}
+#roster{list-style:none;margin:14px 0;padding:0}
+#roster li{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:18px}
+#roster small{margin-left:auto;font-size:14px;color:var(--muted)}
+.check{display:flex!important;align-items:center;gap:10px;min-height:44px;color:var(--text)!important;touch-action:manipulation}
+.check input{width:24px;height:24px;accent-color:var(--mint)}
+#lobbyS{font-size:16px;line-height:1.45;color:var(--muted);margin:6px 0 8px}
+
+/* Race results */
+#standings{list-style:none;margin:0 0 10px;padding:0}
+#standings li{display:grid;grid-template-columns:24px 12px 1fr auto;gap:7px;align-items:center;font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+#standings li.me{color:var(--sun)}
+#standings li.gone{opacity:.5}
+.racing dt.solo,.racing dd.solo{display:none}
 @media (max-height:640px){
   #finalV{font-size:44px} dl{font-size:15px;gap:2px 14px} .sheet{padding:12px 18px 14px}
   .lead{font-size:16px} .safe{font-size:14px;margin-bottom:10px}
@@ -106,7 +144,7 @@ dt{color:var(--muted)}dd{margin:0;text-align:right;font-variant-numeric:tabular-
 </style>
 </head>
 <body>
-<canvas id="c" aria-label="極光下的台灣地圖，小人沿著路線環島"></canvas>
+<canvas id="c" aria-label="Map of Taiwan under the aurora, with a hiker walking around the island"></canvas>
 
 <div id="top" class="off">
   <div>
@@ -114,64 +152,92 @@ dt{color:var(--muted)}dd{margin:0;text-align:right;font-variant-numeric:tabular-
     <div id="next"></div>
   </div>
   <div class="icons">
-    <button class="icon" id="soundB" aria-label="關閉聲音" aria-pressed="true">
+    <button class="icon" id="soundB" aria-label="Turn sound off" aria-pressed="true">
       <svg viewBox="0 0 24 24"><path d="M4 9.5v5h4l5 4v-13l-5 4z"/><path id="wave" d="M16.5 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></svg>
     </button>
-    <button class="icon" id="pauseB" aria-label="暫停">
+    <button class="icon" id="pauseB" aria-label="Pause">
       <svg viewBox="0 0 24 24"><path d="M8.5 5v14M15.5 5v14"/></svg>
     </button>
   </div>
 </div>
 
 <div id="bottom" class="off">
-  <div class="read"><b id="lastV">0</b><span>公分，上一跳</span></div>
-  <div><span id="tier">慢慢走</span><span class="bar"><i id="barV"></i></span></div>
-  <div class="read r"><b id="comboV">×1.0</b><span>連跳加成</span></div>
+  <div class="read"><b id="lastV">0</b><span>cm, last jump</span></div>
+  <div><span id="tier">Strolling</span><span class="bar"><i id="barV"></i></span></div>
+  <div class="read r"><b id="comboV">×1.0</b><span>streak bonus</span></div>
 </div>
 
 <div id="toast" role="status"></div>
 
+<ol id="board" class="hide" aria-label="Live standings"></ol>
+
 <section class="screen" id="start">
-  <h1>跳跳環島</h1>
+  <h1>Hop Around<br>Taiwan</h1>
   <div class="foot">
-    <p class="lead">拿著手機跳起來，帶小人從台南走到台北，再沿東海岸走回台南。跳得愈高，走得愈快。</p>
-    <p class="safe">雙手握緊手機，在空曠平坦的地方跳。</p>
-    <button class="go" id="goMotion">開始跳</button>
-    <button class="alt" id="goTouch">不能跳？改用手指玩</button>
-    <button class="alt hide" id="installB">安裝到手機</button>
-    <p class="safe hide" id="iosTip">想裝到手機：在 Safari 點分享，再選「加入主畫面」。</p>
+    <p class="lead">Hold your phone and jump. Walk from Tainan up the west coast to Taipei, then home along the east coast. The higher you jump, the faster you go.</p>
+    <p class="safe">Grip your phone with both hands and jump somewhere clear and flat.</p>
+    <button class="go" id="goMotion">Start jumping</button>
+    <button class="ghost" id="goRace">Race friends</button>
+    <button class="alt" id="goTouch">Can't jump? Play with your finger</button>
+    <button class="alt hide" id="installB">Install on this phone</button>
+    <p class="safe hide" id="iosTip">To install: tap Share in Safari, then Add to Home Screen.</p>
+  </div>
+</section>
+
+<section class="screen hide" id="race">
+  <div class="pane" id="paneJoin">
+    <h2>Race friends</h2>
+    <label for="nameI">Your name</label>
+    <input type="text" id="nameI" maxlength="10" autocomplete="nickname" enterkeyhint="done" placeholder="Up to 10 letters">
+    <button class="go" id="createB" style="margin-top:16px">Create a race</button>
+    <label for="codeI">Have a room code?</label>
+    <input type="text" id="codeI" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="go" placeholder="ABCD">
+    <button class="ghost" id="joinB">Join race</button>
+    <p class="err" id="raceErr" role="alert"></p>
+    <button class="alt" id="raceBack">Back</button>
+  </div>
+  <div class="pane hide" id="paneLobby">
+    <label>Room code</label>
+    <div class="codeV" id="codeV"></div>
+    <button class="ghost" id="shareB">Share invite</button>
+    <ul id="roster"></ul>
+    <label class="check"><input type="checkbox" id="fingerC"> Play with my finger instead</label>
+    <p id="lobbyS" role="status"></p>
+    <button class="go" id="startRaceB">Start race</button>
+    <button class="alt" id="leaveB">Leave room</button>
   </div>
 </section>
 
 <section class="screen hide" id="count">
   <div id="countV">3</div>
-  <div id="countH">準備起跳</div>
+  <div id="countH">Get ready</div>
 </section>
 
 <section class="screen hide" id="pause">
-  <h2>休息一下</h2>
-  <button class="go" id="resumeB">繼續環島</button>
-  <button class="alt" id="switchB">改用手指玩</button>
-  <button class="alt" id="quitB">結束這一局</button>
+  <h2>Paused</h2>
+  <button class="go" id="resumeB">Keep going</button>
+  <button class="alt" id="switchB">Play with my finger instead</button>
+  <button class="alt" id="quitB">End this game</button>
 </section>
 
 <section class="screen hide" id="result">
-  <div class="sheet">
-    <h2>環島成功！</h2>
+  <div class="sheet" id="sheet">
+    <h2 id="rTitle">You made it around!</h2>
     <div id="finalV">0</div>
     <div id="rank"></div>
+    <ol id="standings" class="hide"></ol>
     <dl>
-      <dt>跳躍次數</dt><dd id="rJumps"></dd>
-      <dt>最高一跳</dt><dd id="rMax"></dd>
-      <dt>平均跳高</dt><dd id="rAvg"></dd>
-      <dt>最長連跳</dt><dd id="rCombo"></dd>
-      <dt>環島時間</dt><dd id="rTime"></dd>
-      <dt>時間加分</dt><dd id="rBonus"></dd>
-      <dt id="rBestL">最佳紀錄</dt><dd id="rBest"></dd>
+      <dt>Jumps</dt><dd id="rJumps"></dd>
+      <dt>Highest jump</dt><dd id="rMax"></dd>
+      <dt>Average jump</dt><dd id="rAvg"></dd>
+      <dt class="solo">Longest streak</dt><dd class="solo" id="rCombo"></dd>
+      <dt>Time</dt><dd id="rTime"></dd>
+      <dt class="solo">Time bonus</dt><dd class="solo" id="rBonus"></dd>
+      <dt class="solo" id="rBestL">Best score</dt><dd class="solo" id="rBest"></dd>
     </dl>
-    <p id="again">要再玩一次嗎？</p>
-    <button class="go" id="againB">再玩一次</button>
-    <button class="alt" id="noB">先不用，回到開始畫面</button>
+    <p id="again">Play again?</p>
+    <button class="go" id="againB">Play again</button>
+    <button class="alt" id="noB">Not now</button>
   </div>
 </section>
 
@@ -181,7 +247,7 @@ dt{color:var(--muted)}dd{margin:0;text-align:right;font-variant-numeric:tabular-
 const $=id=>document.getElementById(id);
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const FONT='"Huninn","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif';
+const FONT='"Fredoka","Avenir Next","Segoe UI",system-ui,sans-serif';
 
 /* ---------- Geography ---------- */
 const COS=Math.cos(23.7*Math.PI/180);
@@ -193,31 +259,31 @@ const OUTLINE=[[121.54,25.30],[121.75,25.14],[122.00,25.01],[121.87,24.84],[121.
 [121.10,25.06],[121.30,25.12],[121.41,25.18],[121.50,25.29]];
 /* Route: a stop has a name; bare points only keep the path on land. */
 const WAY=[
- {n:'台南',p:[120.22,23.00],s:'r'},
+ {n:'Tainan',p:[120.22,23.00],s:'r'},
  {p:[120.32,23.30]},
- {n:'嘉義',p:[120.45,23.48],s:'r',food:'火雞肉飯'},
+ {n:'Chiayi',p:[120.45,23.48],s:'r',food:'turkey rice'},
  {p:[120.53,23.75]},
- {n:'彰化',p:[120.54,24.06],s:'l2',food:'肉圓'},
- {n:'台中',p:[120.68,24.16],s:'r',food:'太陽餅'},
+ {n:'Changhua',p:[120.54,24.06],s:'l2',food:'ba-wan dumplings'},
+ {n:'Taichung',p:[120.68,24.16],s:'r',food:'sun cakes'},
  {p:[120.82,24.54]},
- {n:'新竹',p:[120.98,24.80],s:'r',food:'貢丸湯'},
- {n:'桃園',p:[121.30,24.98],s:'b',food:'大溪豆干'},
- {n:'台北',p:[121.52,25.05],s:'b',half:true},
+ {n:'Hsinchu',p:[120.98,24.80],s:'r',food:'pork ball soup'},
+ {n:'Taoyuan',p:[121.30,24.98],s:'b',food:'Daxi dried tofu'},
+ {n:'Taipei',p:[121.52,25.05],s:'a',half:true},
  {p:[121.72,24.96]},
- {n:'宜蘭',p:[121.74,24.75],s:'l',food:'蔥油餅'},
+ {n:'Yilan',p:[121.74,24.75],s:'l',food:'scallion pancakes'},
  {p:[121.78,24.56]},
  {p:[121.66,24.25]},
- {n:'花蓮',p:[121.56,23.98],s:'l',food:'麻糬'},
+ {n:'Hualien',p:[121.56,23.98],s:'l',food:'mochi'},
  {p:[121.42,23.50]},
  {p:[121.27,23.10]},
- {n:'台東',p:[121.08,22.78],s:'l',food:'釋迦'},
+ {n:'Taitung',p:[121.08,22.78],s:'l',food:'sugar apples'},
  {p:[120.86,22.38]},
- {n:'恆春',p:[120.76,22.03],s:'r',food:'洋蔥'},
+ {n:'Hengchun',p:[120.76,22.03],s:'l',food:'sweet onions'},
  {p:[120.72,22.30]},
  {p:[120.52,22.56]},
- {n:'高雄',p:[120.33,22.65],s:'r',food:'木瓜牛奶'},
+ {n:'Kaohsiung',p:[120.33,22.65],s:'r',food:'papaya milk'},
  {p:[120.24,22.84]},
- {n:'台南',p:[120.22,23.00],s:null,end:true}
+ {n:'Tainan',p:[120.22,23.00],s:null,end:true}
 ];
 const ROUTE=[],CUM=[0],STOPS=[];
 (function buildRoute(){
@@ -333,7 +399,7 @@ function drawMap(){
 
   /* stop names */
   const fs=clamp(K*.075,11,15);
-  c.font=fs+'px '+FONT;c.textBaseline='middle';
+  c.font='500 '+fs+'px '+FONT;c.textBaseline='middle';
   STOPS.forEach(s=>{
     if(!s.s)return;
     const[x,y]=px(s.p[0],s.p[1]);let tx=x,ty=y,al='left';
@@ -341,6 +407,7 @@ function drawMap(){
     else if(s.s==='l'){tx=x-9;al='right'}
     else if(s.s==='l2'){tx=x-9;al='right'}
     else if(s.s==='b'){ty=y+fs+1;al='center'}
+    else if(s.s==='a'){ty=y-fs;al='center'}
     c.textAlign=al;c.lineWidth=3.5;c.strokeStyle='#06102ecc';c.lineJoin='round';
     c.strokeText(s.n,tx,ty);c.fillStyle='#fff';c.fillText(s.n,tx,ty);
   });
@@ -391,7 +458,7 @@ function drawAurora(t){
 /* ---------- Character ---------- */
 function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
 function drawKid(x,y,o){
-  const c=ctx,S=clamp(K/185,.72,1.15)*1.08,hop=o.hop||0,ph=o.phase||0,cheer=o.cheer;
+  const c=ctx,S=clamp(K/185,.72,1.15)*(o.mini?.9:1.08),hop=o.hop||0,ph=o.phase||0,cheer=o.cheer;
   c.save();c.translate(x,y);
   /* ground glow and shadow */
   const sh=clamp(1-hop/90,.45,1);
@@ -420,12 +487,12 @@ function drawKid(x,y,o){
   arm(swing,cheer||hop>6);
   leg(3,swing);
   /* body */
-  c.fillStyle='#38d9e8';c.strokeStyle=out;c.lineWidth=2;rr(c,-7.5,-29,15,18,6);c.fill();c.stroke();
+  c.fillStyle=o.body||'#38d9e8';c.strokeStyle=out;c.lineWidth=2;rr(c,-7.5,-29,15,18,6);c.fill();c.stroke();
   c.strokeStyle='#ff5a5f';c.lineWidth=2.4;c.beginPath();c.moveTo(-5,-28);c.lineTo(-5,-17);c.stroke();
   /* head */
   c.fillStyle='#ffd9b0';c.strokeStyle=out;c.lineWidth=2;c.beginPath();c.arc(0,-37,10.5,0,7);c.fill();c.stroke();
   /* cap */
-  c.fillStyle='#ffc933';c.beginPath();c.arc(0,-38.5,10.5,Math.PI*1.02,Math.PI*1.98);c.closePath();c.fill();c.stroke();
+  c.fillStyle=o.cap||'#ffc933';c.beginPath();c.arc(0,-38.5,10.5,Math.PI*1.02,Math.PI*1.98);c.closePath();c.fill();c.stroke();
   c.beginPath();c.ellipse(9,-39,7,2.4,.05,0,7);c.fill();c.stroke();
   /* face */
   c.fillStyle=out;c.beginPath();c.arc(3,-35,1.5,0,7);c.arc(8,-35,1.4,0,7);c.fill();
@@ -495,13 +562,13 @@ function resetRun(){
   km=0;energy=0;score=0;jumps=0;sumH=0;maxH=0;combo=0;maxCombo=0;lastJumpAt=0;playMs=0;nextStop=1;
   hop=0;hopV=0;squash=0;face=1;cheer=0;idleHint=0;motionHint=false;bonus=0;scoreShown=0;
   floats.length=sparks.length=rockets.length=shards.length=0;
-  $('lastV').textContent='0';$('comboV').textContent='×1.0';$('tier').textContent='慢慢走';
+  $('lastV').textContent='0';$('comboV').textContent='×1.0';$('tier').textContent='Strolling';
   $('barV').style.transform='scaleX(0)';
   updateNext();
 }
 function updateNext(){
   const s=STOPS[nextStop];
-  $('next').textContent=s?'下一站'+s.n+'，還有 '+Math.max(0,Math.ceil(s.km-km))+' 公里':'';
+  $('next').textContent=s?'Next: '+s.n+', '+Math.max(0,Math.ceil(s.km-km))+' km':'';
 }
 let toastT=0;
 function toast(msg,ms){
@@ -517,7 +584,7 @@ function jump(h){
   const mult=1+Math.min(combo-1,20)*.05,pts=Math.round(h*10*mult);
   score+=pts;jumps++;sumH+=h;maxH=Math.max(maxH,h);energy+=JUMP_KM(h);idleHint=0;
   hopV=Math.min(120+h*4.2,430);squash=.16;
-  const word=h>=45?'超級跳！':h>=30?'漂亮！':h>=15?'不錯':'';
+  const word=h>=45?'Huge!':h>=30?'Great!':h>=15?'Nice':'';
   const p=pointAt(km),q=px(p.lon,p.lat);
   floats.push({x:q[0],y:q[1]-74,t:0,text:'+'+pts,sub:word,big:h>=30});
   for(let i=0;i<8+h/4;i++){
@@ -531,21 +598,21 @@ function jump(h){
 
 function reachStop(s){
   score+=300;sfxStop();
-  if(s.half)toast('走到台北了！+300，接下來沿東海岸回台南',2800);
+  if(s.half)toast('Taipei! +300. Now head home down the east coast',2800);
   else if(s.end)return;
-  else toast('抵達'+s.n+'，吃份'+s.food+' +300');
+  else toast(s.n+': time for '+s.food+' +300');
 }
 
 function finish(){
   state='finish';km=TOTAL_KM;finishAt=performance.now();
   const sec=playMs/1000;bonus=Math.round(Math.max(0,300-sec)*10);score+=300+bonus;
-  $('top').classList.add('off');$('bottom').classList.add('off');
-  releaseWake();fanfare();
-  toast('回到台南，環島完成！',2400);
+  $('top').classList.add('off');$('bottom').classList.add('off');$('board').classList.add('hide');
+  releaseWake();fanfare();sendState();
+  toast('Back in Tainan. You did it!',2400);
   setTimeout(showResult,2800);
 }
 
-function fmtTime(ms){const s=Math.round(ms/1000),m=Math.floor(s/60);return m+' 分 '+String(s%60).padStart(2,'0')+' 秒'}
+function fmtTime(ms){const s=Math.round(ms/1000),m=Math.floor(s/60);return m+'m '+String(s%60).padStart(2,'0')+'s'}
 function storeBest(){
   const key='jumpTaiwanBest:'+mode;let best=0;
   try{best=+localStorage.getItem(key)||0}catch(e){}
@@ -558,18 +625,20 @@ function showResult(){
   state='result';
   const avg=jumps?sumH/jumps:0;
   $('finalV').textContent=score.toLocaleString('en-US');
-  $('rank').textContent=mode==='touch'?'手指環島完成':avg>=35?'飛天環島王':avg>=22?'跳跳高手':avg>=12?'腳力達人':'悠哉環島客';
-  $('rJumps').textContent=jumps+' 次';
-  $('rMax').textContent=Math.round(maxH)+' 公分';
-  $('rAvg').textContent=Math.round(avg)+' 公分';
-  $('rCombo').textContent=maxCombo+' 連跳';
+  $('rank').textContent=mode==='touch'?'Finger finish':avg>=35?'Sky walker':avg>=22?'Jump pro':avg>=12?'Strong legs':'Easy stroller';
+  $('rJumps').textContent=jumps;
+  $('rMax').textContent=Math.round(maxH)+' cm';
+  $('rAvg').textContent=Math.round(avg)+' cm';
+  $('rCombo').textContent=maxCombo+' jumps';
   $('rTime').textContent=fmtTime(playMs);
   $('rBonus').textContent='+'+bonus;
-  const b=storeBest();
-  $('rBestL').textContent=b.isNew&&b.hadOld?'新紀錄！':'最佳紀錄';
-  $('rBest').textContent=b.best.toLocaleString('en-US');
+  if(!net){
+    const b=storeBest();
+    $('rBestL').textContent=b.isNew&&b.hadOld?'New best score!':'Best score';
+    $('rBest').textContent=b.best.toLocaleString('en-US');
+  }
+  resultChrome();
   $('result').classList.remove('hide');
-  $('againB').focus({preventScroll:true});
 }
 
 /* ---------- Jump detection ----------
@@ -630,50 +699,380 @@ let wake=null;
 async function holdWake(){try{if(navigator.wakeLock)wake=await navigator.wakeLock.request('screen')}catch(e){wake=null}}
 function releaseWake(){try{wake&&wake.release()}catch(e){}wake=null}
 
+const SCREENS=['start','race','count','pause','result'];
+const only=id=>SCREENS.forEach(i=>$(i).classList.toggle('hide',i!==id));
+
 let countTimer=0;
 function begin(){
-  ['start','result','pause'].forEach(i=>$(i).classList.add('hide'));
+  only('count');
   $('top').classList.remove('off');$('bottom').classList.remove('off');
   resetRun();state='count';holdWake();
+  $('board').classList.toggle('hide',!net);
   const before=det.count;
   if(mode==='motion')setTimeout(()=>{
-    if(mode==='motion'&&det.count===before&&state!=='title')useTouch('這裡讀不到手機的動作感測器，改用手指：按住螢幕蓄力，放開就跳');
+    if(mode==='motion'&&det.count===before&&state!=='title')useTouch("This browser isn't sharing motion data, so use your finger: hold to charge, release to jump");
   },1500);
-  let n=3;const cV=$('countV');$('count').classList.remove('hide');cV.textContent=n;
-  $('countH').textContent='準備起跳';tone(520,0,.14,'square',.08);
+  let n=3;const cV=$('countV');cV.textContent=n;
+  $('countH').textContent='Get ready';tone(520,0,.14,'square',.08);
   clearInterval(countTimer);
   countTimer=setInterval(()=>{
     n--;
     if(n>0){cV.textContent=n;tone(520,0,.14,'square',.08)}
     else{clearInterval(countTimer);$('count').classList.add('hide');tone(880,0,.3,'square',.09);
       state='play';startAt=performance.now();
-      toast(mode==='touch'?'按住螢幕蓄力，放開就跳':'往上跳！跳愈高走愈快',2000)}
+      toast(mode==='touch'?'Hold to charge, release to jump':'Jump! Higher means faster',2000)}
   },800);
 }
 $('goMotion').addEventListener('click',async()=>{
   initAudio();mode='motion';
-  if(!await askMotion())useTouch('沒有動作感測器權限，改用手指：按住螢幕蓄力，放開就跳');
+  if(!await askMotion())useTouch("Motion access is off, so use your finger: hold to charge, release to jump");
   begin();
 });
 $('goTouch').addEventListener('click',()=>{initAudio();mode='touch';begin()});
-$('againB').addEventListener('click',()=>{initAudio();begin()});
-$('noB').addEventListener('click',toTitle);
+$('againB').addEventListener('click',()=>{initAudio();if(net){if(net.isHost)hostToLobby()}else begin()});
+$('noB').addEventListener('click',()=>{if(net)leaveRace();else toTitle()});
 function toTitle(){
   state='title';clearInterval(countTimer);resetRun();releaseWake();
-  ['result','pause','count'].forEach(i=>$(i).classList.add('hide'));
-  $('top').classList.add('off');$('bottom').classList.add('off');$('start').classList.remove('hide');
+  $('top').classList.add('off');$('bottom').classList.add('off');$('board').classList.add('hide');
+  only('start');
 }
-function pause(){if(state!=='play')return;state='pause';charging=false;$('switchB').classList.toggle('hide',mode==='touch');$('pause').classList.remove('hide')}
+function pause(){
+  if(state!=='play')return;
+  state='pause';charging=false;
+  $('switchB').classList.toggle('hide',mode==='touch');
+  $('quitB').textContent=net?'Leave race':'End this game';
+  $('pause').classList.remove('hide');
+}
 $('pauseB').addEventListener('click',pause);
 $('resumeB').addEventListener('click',()=>{$('pause').classList.add('hide');state='play';holdWake()});
-$('switchB').addEventListener('click',()=>{mode='touch';$('pause').classList.add('hide');state='play';toast('按住螢幕蓄力，放開就跳')});
-$('quitB').addEventListener('click',toTitle);
+$('switchB').addEventListener('click',()=>{mode='touch';$('pause').classList.add('hide');state='play';toast('Hold to charge, release to jump')});
+$('quitB').addEventListener('click',()=>{if(net)leaveRace();else toTitle()});
 $('soundB').addEventListener('click',()=>{
   sound=!sound;initAudio();if(master)master.gain.value=sound?.75:0;
   $('wave').style.display=sound?'':'none';
-  $('soundB').setAttribute('aria-pressed',sound);$('soundB').setAttribute('aria-label',sound?'關閉聲音':'開啟聲音');
+  $('soundB').setAttribute('aria-pressed',sound);$('soundB').setAttribute('aria-label',sound?'Turn sound off':'Turn sound on');
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();else if(state==='play')holdWake()});
+
+/* ---------- Race with friends ----------
+   The host's phone is the hub: every player sends it their progress and
+   it relays everyone's progress back, five times a second. PeerJS only
+   helps phones find each other; game data travels over WebRTC. */
+const PEER_URL='https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js';
+const ROOM_PREFIX='hop-around-taiwan-v1-',MAX_PLAYERS=6,CODE_CHARS='ABCDEFGHJKMNPQRSTUVWXYZ';
+const LOOKS=[{cap:'#ffc933',body:'#38d9e8'},{cap:'#ff5a5f',body:'#ffe3b3'},{cap:'#b48cff',body:'#ffc933'},
+  {cap:'#38d9e8',body:'#ff8fd0'},{cap:'#ff8fd0',body:'#4dffb0'},{cap:'#4dffb0',body:'#ff5a5f'}];
+const myPid=Math.random().toString(36).slice(2,12);
+let net=null;
+
+function loadPeer(){
+  if(window.Peer)return Promise.resolve();
+  return new Promise((ok,no)=>{
+    const t=document.createElement('script');t.src=PEER_URL;t.onload=ok;t.onerror=()=>no(new Error('load'));
+    document.head.appendChild(t);
+  });
+}
+const cleanName=v=>String(v||'').replace(/\s+/g,' ').trim().slice(0,10)||'Player';
+const num=(v,a,b)=>{v=+v;return Number.isFinite(v)?clamp(v,a,b):a};
+function makePlayer(pid,name,look,m){return{pid,name:cleanName(name),look,mode:m==='touch'?'touch':'motion',
+  km:0,tk:0,score:0,jumps:0,lastH:0,done:false,ms:0,left:false,hop:0,hopV:0,phase:Math.random()*6,face:1,seen:false,conn:null}}
+function freeLook(){const used=new Set([...net.players.values()].map(p=>p.look));return LOOKS.findIndex((_,i)=>!used.has(i))}
+const lobbyMsg=()=>({t:'lobby',phase:net.phase,code:net.code,p:[...net.players.values()].map(p=>[p.pid,p.name,p.look,p.mode,p.left?1:0])});
+function hostSend(c,m){try{c&&c.open&&c.send(m)}catch(e){}}
+function broadcast(m){net.players.forEach(p=>{if(p.conn)hostSend(p.conn,m)})}
+
+function resetProgress(){net.players.forEach(p=>{p.km=p.tk=p.score=p.jumps=p.lastH=p.ms=0;p.done=false;p.seen=false;p.seenJ=0;p.hop=p.hopV=0})}
+function myEntry(){return net&&net.players.get(net.pid)}
+function syncMe(){
+  const me=myEntry();if(!me)return;
+  me.tk=me.km=km;me.score=score;me.jumps=jumps;me.ms=playMs;me.mode=mode;
+  me.done=state==='finish'||state==='result';
+  me.lastH=+$('lastV').textContent||0;
+}
+function sendState(){
+  if(!net||net.phase!=='race')return;
+  syncMe();
+  if(net.isHost){
+    broadcast({t:'st',p:[...net.players.values()].map(p=>[p.pid,Math.round(p.tk*10)/10,p.score,p.jumps,p.lastH,p.done?1:0,Math.round(p.ms),p.left?1:0,p.mode==='touch'?1:0])});
+  }else if(net.conn&&net.conn.open){
+    const me=myEntry();
+    try{net.conn.send({t:'s',km:me.tk,score:me.score,jumps:me.jumps,h:me.lastH,done:me.done,ms:me.ms,m:mode})}catch(e){}
+  }
+  renderBoard();
+}
+setInterval(sendState,200);
+
+/* Host side */
+function hostData(c,d){
+  if(!net||!d||typeof d!=='object')return;
+  if(d.t==='hello'){
+    const pid=String(d.pid||'').slice(0,16);if(!pid)return;
+    let p=net.players.get(pid);
+    if(!p){
+      if(net.phase!=='lobby')return hostSend(c,{t:'deny',why:'started'});
+      if(net.players.size>=MAX_PLAYERS)return hostSend(c,{t:'deny',why:'full'});
+      p=makePlayer(pid,d.name,freeLook(),d.m);net.players.set(pid,p);
+    }else{p.name=cleanName(d.name);p.mode=d.m==='touch'?'touch':'motion'}
+    p.conn=c;p.left=false;c.pid=pid;
+    hostSend(c,{t:'welcome'});
+    if(net.phase==='race')hostSend(c,{t:'start',resume:true});
+    broadcast(lobbyMsg());renderRoster();
+  }else if(d.t==='s'){
+    const p=net.players.get(c.pid);if(!p||p.conn!==c)return;
+    p.tk=num(d.km,0,TOTAL_KM);p.score=num(d.score,0,1e7);p.jumps=num(d.jumps,0,1e5);p.lastH=num(d.h,0,100);
+    p.ms=num(d.ms,0,36e5);p.done=!!d.done;p.mode=d.m==='touch'?'touch':'motion';
+  }else if(d.t==='bye'){dropPlayer(c,true)}
+}
+function dropPlayer(c,forGood){
+  if(!net||!net.isHost)return;
+  const p=net.players.get(c.pid);if(!p||p.conn!==c)return;
+  p.conn=null;
+  if(net.phase==='lobby'||(forGood&&!p.jumps))net.players.delete(p.pid);else p.left=true;
+  broadcast(lobbyMsg());renderRoster();
+}
+function hostAccept(c){
+  c.on('data',d=>hostData(c,d));
+  c.on('close',()=>dropPlayer(c));
+  c.on('error',()=>dropPlayer(c));
+}
+function genCode(){let s='';for(let i=0;i<4;i++)s+=CODE_CHARS[Math.floor(Math.random()*CODE_CHARS.length)];return s}
+function openHostPeer(code){
+  return new Promise((ok,no)=>{
+    const peer=new Peer(ROOM_PREFIX+code,{debug:0});let settled=false;
+    peer.on('open',()=>{settled=true;ok(peer)});
+    peer.on('error',e=>{if(!settled){settled=true;try{peer.destroy()}catch(x){}no(e)}});
+  });
+}
+async function createRace(){
+  raceBusy(true);
+  try{
+    await loadPeer();
+    let peer=null,code='';
+    for(let i=0;i<4&&!peer;i++){
+      code=genCode();
+      try{peer=await openHostPeer(code)}catch(e){if(e&&e.type!=='unavailable-id')throw e}
+    }
+    if(!peer)throw new Error('id');
+    net={isHost:true,code,peer,pid:myPid,phase:'lobby',players:new Map(),rank:0,toastAt:0};
+    net.players.set(myPid,makePlayer(myPid,$('nameI').value,0,mode));
+    peer.on('connection',hostAccept);
+    peer.on('disconnected',()=>{try{if(net&&net.peer===peer&&!peer.destroyed)peer.reconnect()}catch(e){}});
+    showLobby();
+  }catch(e){raceError(e&&e.message==='load'?"Couldn't load the race service. Check your internet connection.":"Couldn't reach the race service. Try again in a moment.")}
+  raceBusy(false);
+}
+
+/* Player side */
+function clientData(d){
+  if(!net||!d||typeof d!=='object')return;
+  if(d.t==='welcome'){
+    net.joined=true;net.retry=0;clearTimeout(net.joinT);
+  }else if(d.t==='closed'){
+    raceEnded();
+  }else if(d.t==='deny'){
+    const why=d.why==='full'?'That room is full. Races have up to 6 players.':'That race has already started. Ask the host to open a new one.';
+    teardown();raceError(why);$('paneLobby').classList.add('hide');$('paneJoin').classList.remove('hide');
+  }else if(d.t==='lobby'&&Array.isArray(d.p)){
+    const old=net.players;net.players=new Map();
+    d.p.slice(0,MAX_PLAYERS).forEach(r=>{
+      const pid=String(r[0]),p=old.get(pid)||makePlayer(pid,r[1],0,r[3]);
+      p.name=cleanName(r[1]);p.look=num(r[2],0,LOOKS.length-1);p.mode=r[3]==='touch'?'touch':'motion';p.left=!!r[4];
+      net.players.set(pid,p);
+    });
+    net.phase=d.phase==='race'?'race':'lobby';
+    if(net.phase==='lobby'){if(state!=='lobby')showLobby();else renderRoster()}
+  }else if(d.t==='start'){
+    net.phase='race';
+    if(d.resume&&(state==='play'||state==='pause'||state==='finish'||state==='result'||state==='count'))return;
+    resetProgress();begin();
+  }else if(d.t==='st'&&Array.isArray(d.p)){
+    d.p.forEach(r=>{
+      const p=net.players.get(String(r[0]));if(!p||p.pid===net.pid)return;
+      p.tk=num(r[1],0,TOTAL_KM);p.score=num(r[2],0,1e7);p.jumps=num(r[3],0,1e5);p.lastH=num(r[4],0,100);
+      p.done=!!r[5];p.ms=num(r[6],0,36e5);p.left=!!r[7];p.mode=r[8]?'touch':'motion';
+    });
+  }
+}
+function openConn(){
+  const c=net.peer.connect(ROOM_PREFIX+net.code,{reliable:true});
+  net.conn=c;
+  c.on('open',()=>{try{c.send({t:'hello',pid:net.pid,name:cleanName($('nameI').value),m:mode})}catch(e){}});
+  c.on('data',clientData);
+  c.on('close',()=>{if(net&&net.conn===c)clientLost()});
+}
+function clientLost(){
+  if(!net||net.isHost)return;
+  if(!net.joined)return;
+  net.retry=(net.retry||0)+1;
+  if(net.retry>5)return raceEnded();
+  toast('Reconnecting to the race…',1800);
+  setTimeout(()=>{
+    if(!net||net.isHost)return;
+    try{if(net.peer.disconnected&&!net.peer.destroyed)net.peer.reconnect();openConn()}catch(e){clientLost()}
+  },2000);
+}
+function raceEnded(){
+  teardown();
+  if(state==='play'||state==='pause'||state==='count'){toast('The race connection ended. Finish on your own.',3200);$('board').classList.add('hide')}
+  else if(state==='lobby'){$('paneLobby').classList.add('hide');$('paneJoin').classList.remove('hide');state='title';raceError('The host closed this room.');resetRun()}
+  else if(state==='result'){toast('The race connection ended.',2600);resultChrome()}
+}
+async function joinRace(){
+  const code=$('codeI').value.trim().toUpperCase();
+  if(!/^[A-Z]{4}$/.test(code))return raceError('Enter the 4-letter room code.');
+  raceBusy(true);
+  try{await loadPeer()}catch(e){raceBusy(false);return raceError("Couldn't load the race service. Check your internet connection.")}
+  try{
+    const peer=new Peer({debug:0});
+    net={isHost:false,code,peer,pid:myPid,phase:'lobby',players:new Map(),rank:0,toastAt:0,joined:false,retry:0};
+    const fail=msg=>{if(!net||net.joined)return;teardown();raceBusy(false);raceError(msg)};
+    net.joinT=setTimeout(()=>fail('Room '+code+' didn\'t answer. Check the code and keep the host\'s game open.'),12000);
+    peer.once('open',openConn);
+    peer.on('error',e=>{
+      if(net&&net.joined){if(e&&e.type==='peer-unavailable')clientLost();return}
+      fail(e&&e.type==='peer-unavailable'?'No room found with code '+code+'.':"Couldn't reach the race service. Try again in a moment.");
+    });
+    peer.on('disconnected',()=>{try{if(net&&net.peer===peer&&!peer.destroyed)peer.reconnect()}catch(e){}});
+    net.onJoin=()=>raceBusy(false);
+  }catch(e){raceBusy(false);raceError("This browser can't join races.")}
+}
+function teardown(){
+  if(!net)return;
+  const n=net;net=null;clearTimeout(n.joinT);
+  try{if(n.conn&&n.conn.open)n.conn.send({t:'bye'})}catch(e){}
+  if(n.isHost)n.players.forEach(p=>{if(p.conn)hostSend(p.conn,{t:'closed'})});
+  setTimeout(()=>{try{n.peer.destroy()}catch(e){}},150);
+}
+function leaveRace(){
+  teardown();
+  try{history.replaceState(null,'',location.pathname)}catch(e){}
+  toTitle();
+}
+
+/* Room screens */
+function raceError(m){$('raceErr').textContent=m||''}
+function raceBusy(b){$('createB').disabled=b;$('joinB').disabled=b;if(b)raceError('')}
+function openRaceScreen(){
+  only('race');$('paneJoin').classList.remove('hide');$('paneLobby').classList.add('hide');raceError('');
+  try{$('nameI').value=$('nameI').value||localStorage.getItem('hopTaiwanName')||''}catch(e){}
+}
+function saveName(){try{localStorage.setItem('hopTaiwanName',$('nameI').value.trim())}catch(e){}}
+async function raceGesture(){
+  /* Motion access and sound must be unlocked by a tap; a race start arrives over the network. */
+  initAudio();saveName();
+  mode=$('fingerC').checked?'touch':'motion';
+  if(mode==='motion'&&!await askMotion()){mode='touch';$('fingerC').checked=true}
+}
+$('goRace').addEventListener('click',()=>{initAudio();openRaceScreen()});
+$('raceBack').addEventListener('click',toTitle);
+$('createB').addEventListener('click',async()=>{await raceGesture();createRace()});
+$('joinB').addEventListener('click',async()=>{await raceGesture();joinRace()});
+$('codeI').addEventListener('keydown',e=>{if(e.key==='Enter')$('joinB').click()});
+$('leaveB').addEventListener('click',leaveRace);
+$('fingerC').addEventListener('change',async()=>{
+  mode=$('fingerC').checked?'touch':'motion';
+  if(mode==='motion'&&!await askMotion()){mode='touch';$('fingerC').checked=true}
+  if(!net)return;
+  const me=myEntry();if(me)me.mode=mode;
+  if(net.isHost){broadcast(lobbyMsg());renderRoster()}
+  else try{net.conn.send({t:'hello',pid:net.pid,name:cleanName($('nameI').value),m:mode})}catch(e){}
+});
+$('shareB').addEventListener('click',async()=>{
+  if(!net)return;
+  const url=location.origin+location.pathname+'?room='+net.code;
+  const text='Race me around Taiwan! Room code '+net.code;
+  try{
+    if(navigator.share)await navigator.share({title:'Hop Around Taiwan',text,url});
+    else{await navigator.clipboard.writeText(url);toast('Invite link copied')}
+  }catch(e){if(!e||e.name!=='AbortError')toast('Share this code: '+net.code,3000)}
+});
+$('startRaceB').addEventListener('click',()=>{
+  if(!net||!net.isHost||net.players.size<2)return;
+  net.phase='race';resetProgress();broadcast(lobbyMsg());broadcast({t:'start'});begin();
+});
+function showLobby(){
+  state='lobby';clearInterval(countTimer);resetRun();raceBusy(false);holdWake();
+  if(net&&net.onJoin){net.onJoin();net.onJoin=null}
+  $('top').classList.add('off');$('bottom').classList.add('off');$('board').classList.add('hide');
+  only('race');$('paneJoin').classList.add('hide');$('paneLobby').classList.remove('hide');
+  $('codeV').textContent=net.code;$('fingerC').checked=mode==='touch';
+  renderRoster();
+}
+function hostToLobby(){
+  net.phase='lobby';
+  [...net.players.values()].forEach(p=>{if(p.left)net.players.delete(p.pid)});
+  resetProgress();broadcast(lobbyMsg());showLobby();
+}
+function renderRoster(){
+  if(!net||state!=='lobby')return;
+  const ul=$('roster');ul.textContent='';
+  net.players.forEach(p=>{
+    const li=document.createElement('li'),d=document.createElement('span'),n=document.createElement('span'),m=document.createElement('small');
+    d.className='dot';d.style.background=LOOKS[p.look].cap;
+    n.textContent=p.name+(p.pid===net.pid?' (you)':'');
+    m.textContent=p.mode==='touch'?'finger':'jumping';
+    li.append(d,n,m);ul.append(li);
+  });
+  const many=net.players.size>=2;
+  $('startRaceB').classList.toggle('hide',!net.isHost);
+  $('startRaceB').disabled=!many;
+  $('leaveB').textContent=net.isHost?'Close room':'Leave room';
+  $('lobbyS').textContent=net.isHost?(many?'Everyone in? Start when ready.':'Share the code, then keep this screen open. Your phone runs the race.'):'Waiting for the host to start.';
+}
+
+/* Standings */
+function ranked(){
+  return [...net.players.values()].sort((a,b)=>{
+    if(a.done&&b.done)return a.ms-b.ms;
+    if(a.done!==b.done)return a.done?-1:1;
+    if(a.left!==b.left)return a.left?1:-1;
+    return b.tk-a.tk;
+  });
+}
+function row(li,cells){cells.forEach(([cls,txt,col])=>{const s=document.createElement('span');s.className=cls;if(txt!=null)s.textContent=txt;if(col)s.style.background=col;li.append(s)})}
+const ORD=n=>n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:n%10]||'th');
+function renderBoard(){
+  if(!net||net.phase!=='race')return;
+  const list=ranked();
+  if(state==='play'){
+    const b=$('board');b.textContent='';
+    list.forEach((p,i)=>{
+      const li=document.createElement('li');
+      li.className=(p.pid===net.pid?'me ':'')+(p.left?'gone':'');
+      row(li,[['',String(i+1)],['dot',null,LOOKS[p.look].cap],['nm',p.pid===net.pid?'You':p.name],['',p.done?'Done':Math.floor(p.tk/TOTAL_KM*100)+'%']]);
+      b.append(li);
+    });
+    b.style.bottom=(H-$('bottom').getBoundingClientRect().top+6)+'px';
+    const r=list.findIndex(p=>p.pid===net.pid)+1,now=performance.now();
+    if(net.rank&&r>net.rank&&km>10&&now-net.toastAt>4000){net.toastAt=now;toast(list[r-2].name+' passed you!',1500)}
+    net.rank=r;
+    list.forEach(p=>{if(p.done&&!p.seen){p.seen=true;if(p.pid!==net.pid)toast(p.name+' finished!',1800)}});
+  }
+  if(state==='result')resultChrome();
+}
+function resultChrome(){
+  const racing=!!net;
+  $('sheet').classList.toggle('racing',racing);
+  $('standings').classList.toggle('hide',!racing);
+  $('noB').textContent=racing?(net.isHost?'Close room':'Leave race'):'Not now';
+  if(!racing){
+    $('rTitle').textContent='You made it around!';$('again').textContent='Play again?';$('againB').classList.remove('hide');
+    return;
+  }
+  const list=ranked(),ol=$('standings'),r=list.findIndex(p=>p.pid===net.pid)+1;
+  $('rTitle').textContent=r===1?'You won the race!':'You finished '+ORD(r)+'!';
+  ol.textContent='';
+  list.forEach((p,i)=>{
+    const li=document.createElement('li');
+    li.className=(p.pid===net.pid?'me ':'')+(p.left?'gone':'');
+    const res=p.done?fmtTime(p.ms)+', '+p.score.toLocaleString('en-US'):p.left?'Left':Math.floor(p.tk/TOTAL_KM*100)+'%';
+    row(li,[['',ORD(i+1)],['dot',null,LOOKS[p.look].cap],['nm',p.name+(p.mode==='touch'?' ✋':'')],['',res]]);
+    ol.append(li);
+  });
+  const waiting=list.some(p=>!p.done&&!p.left);
+  $('againB').classList.toggle('hide',!net.isHost);
+  $('again').textContent=net.isHost?(waiting?'Others are still racing. Play again anyway?':'Play again?'):'Waiting for the host to start the next race.';
+}
 
 /* ---------- Fireworks ---------- */
 const FW=['#4dffb0','#38d9e8','#a46bff','#ffc933','#ff5a5f','#ffffff','#ff8fd0'];
@@ -705,6 +1104,12 @@ function stepFire(dt,now){
   ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
 }
 
+function nameTag(t,x,y,col){
+  ctx.font='500 12px '+FONT;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.lineJoin='round';ctx.lineWidth=3.5;ctx.strokeStyle='#0a1638';ctx.fillStyle=col;
+  ctx.strokeText(t,x,y);ctx.fillText(t,x,y);
+}
+
 /* ---------- Main loop ---------- */
 let last=performance.now();
 function frame(now){
@@ -718,18 +1123,18 @@ function frame(now){
     const moved=d+BASE_KM*dt;km+=moved;
     const sp=moved/Math.max(dt,.001),ratio=clamp(sp/(TOTAL_KM*.03),0,1);
     $('barV').style.transform='scaleX('+ratio.toFixed(3)+')';
-    $('tier').textContent=ratio>.8?'全力衝刺':ratio>.45?'小跑步':ratio>.18?'快走':'慢慢走';
+    $('tier').textContent=ratio>.8?'Sprinting':ratio>.45?'Jogging':ratio>.18?'Brisk walk':'Strolling';
     phase+=(3+ratio*20)*dt;
     while(nextStop<STOPS.length&&km>=STOPS[nextStop].km){reachStop(STOPS[nextStop]);nextStop++}
     updateNext();
     idleHint+=dt;
-    if(idleHint>6&&jumps>0){idleHint=0;toast('跳起來！小人快走不動了')}
-    if(mode==='motion'&&!jumps&&playMs>12000&&!motionHint){motionHint=true;toast('還沒偵測到跳躍。握緊手機往上跳，跳到雙腳離地',3400)}
+    if(idleHint>6&&jumps>0){idleHint=0;toast('Jump! Your hiker is slowing down')}
+    if(mode==='motion'&&!jumps&&playMs>12000&&!motionHint){motionHint=true;toast('No jumps detected yet. Grip your phone and get both feet off the ground',3400)}
     if(performance.now()-lastJumpAt>COMBO_GAP&&combo){combo=0;$('comboV').textContent='×1.0'}
     if(km>=TOTAL_KM)finish();
   }
   if(state==='finish'||state==='result'){cheer=1;if(hop<=0&&hopV<=0)hopV=170;phase+=dt*4}
-  if(state==='title'){phase+=dt*2}
+  if(state==='title'||state==='lobby'){phase+=dt*2}
   /* hop physics */
   if(hop>0||hopV>0){hop+=hopV*dt;hopV-=900*dt;if(hop<=0){hop=0;hopV=0;squash=.12}}
   squash=Math.max(0,squash-dt*.7);
@@ -767,7 +1172,28 @@ function frame(now){
     ctx.strokeStyle='#ffffff40';ctx.lineWidth=6;ctx.beginPath();ctx.arc(q[0],q[1]-22,r,0,7);ctx.stroke();
     ctx.strokeStyle='#ffc933';ctx.beginPath();ctx.arc(q[0],q[1]-22,r,-1.57,-1.57+ch*6.283);ctx.stroke();
   }
-  drawKid(q[0],q[1],{hop,phase,face,cheer:cheer>0,squash});
+  const racers=net&&(net.phase==='race')&&state!=='lobby'?[...net.players.values()]:null;
+  if(racers){
+    const n=racers.length;
+    racers.forEach((p,i)=>{
+      if(p.pid===net.pid||p.left)return;
+      const j=p.jumps;
+      if(j>(p.seenJ||0))p.hopV=Math.min(120+p.lastH*4.2,430);
+      p.seenJ=j;
+      const before=p.km;p.km+=(p.tk-p.km)*Math.min(1,dt*6);
+      p.phase+=(3+clamp((p.km-before)/Math.max(dt,.001)/(TOTAL_KM*.03),0,1)*20)*dt;
+      if(p.hop>0||p.hopV>0){p.hop+=p.hopV*dt;p.hopV-=900*dt;if(p.hop<=0){p.hop=0;p.hopV=0}}
+      const a=pointAt(p.km),b=px(a.lon,a.lat);
+      if(Math.abs(a.dir)>1e-5)p.face=a.dir>0?1:-1;
+      const off=(i-(n-1)/2)*9;
+      const L=LOOKS[p.look];
+      drawKid(b[0]+off,b[1],{hop:p.hop,phase:p.phase,face:p.face,cheer:p.done,cap:L.cap,body:L.body,mini:true});
+      nameTag(p.name,b[0]+off,b[1]-p.hop-54,L.cap);
+    });
+  }
+  const meLook=net&&myEntry()?LOOKS[myEntry().look]:LOOKS[0];
+  drawKid(q[0],q[1],{hop,phase,face,cheer:cheer>0,squash,cap:meLook.cap,body:meLook.body});
+  if(racers)nameTag('You',q[0],q[1]-hop-64,meLook.cap);
 
   /* sparks */
   ctx.globalCompositeOperation='lighter';
@@ -783,9 +1209,9 @@ function frame(now){
   for(let i=floats.length-1;i>=0;i--){
     const f=floats[i];f.t+=dt;if(f.t>1){floats.splice(i,1);continue}
     const y=f.y-f.t*44,a=f.t<.7?1:1-(f.t-.7)/.3,fs=f.big?26:20;
-    ctx.globalAlpha=a;ctx.font=fs+'px '+FONT;ctx.lineWidth=4;ctx.strokeStyle='#0a1638';ctx.fillStyle='#ffc933';
+    ctx.globalAlpha=a;ctx.font='600 '+fs+'px '+FONT;ctx.lineWidth=4;ctx.strokeStyle='#0a1638';ctx.fillStyle='#ffc933';
     ctx.strokeText(f.text,f.x,y);ctx.fillText(f.text,f.x,y);
-    if(f.sub){ctx.font='15px '+FONT;ctx.fillStyle='#fff';ctx.strokeText(f.sub,f.x,y-fs*.85);ctx.fillText(f.sub,f.x,y-fs*.85)}
+    if(f.sub){ctx.font='500 15px '+FONT;ctx.fillStyle='#fff';ctx.strokeText(f.sub,f.x,y-fs*.85);ctx.fillText(f.sub,f.x,y-fs*.85)}
   }
   ctx.globalAlpha=1;
   stepFire(dt,now);
@@ -812,6 +1238,8 @@ if('serviceWorker' in navigator&&window.isSecureContext){
 window.addEventListener('resize',layout);
 window.addEventListener('orientationchange',()=>setTimeout(layout,200));
 updateNext();layout();
+const inviteRoom=new URLSearchParams(location.search).get('room');
+if(inviteRoom&&/^[A-Za-z]{4}$/.test(inviteRoom)){$('codeI').value=inviteRoom.toUpperCase();openRaceScreen()}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawMap);
 requestAnimationFrame(frame);
 })();

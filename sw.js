@@ -1,5 +1,5 @@
-// 更新遊戲內容後，把版本號加一，已安裝的手機才會換掉舊檔案。
-const VERSION = 'v1';
+// After changing the game, raise this version so installed phones replace old files.
+const VERSION = 'v2';
 const CACHE = 'jump-taiwan-' + VERSION;
 const FONT_CACHE = 'jump-taiwan-fonts';
 const FILES = [
@@ -26,7 +26,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 頁面：先連網拿最新版，連不上或超過 3 秒就用快取。
+// Pages: try the network first, then fall back to the cache after 3 seconds.
 async function pageRequest(request) {
   const cache = await caches.open(CACHE);
   const network = fetch(request).then(res => {
@@ -62,7 +62,7 @@ self.addEventListener('fetch', event => {
     event.respondWith(pageRequest(request));
   } else if (url.origin === location.origin) {
     event.respondWith(cacheFirst(request, CACHE));
-  } else if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
+  } else if (['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'].includes(url.hostname)) {
     event.respondWith(cacheFirst(request, FONT_CACHE));
   }
 });

@@ -1,32 +1,51 @@
-# 跳跳環島
+# Hop Around Taiwan
 
-拿著手機跳起來，帶小人從台南走到台北，再沿東海岸走回台南。跳得愈高，走得愈快。
+Hold your phone and jump to walk from Tainan up the west coast to Taipei, then home along the east coast. The higher you jump, the faster you go. Play alone, or race up to 5 friends live on their own phones.
 
-這是可以安裝到手機、離線遊玩的網頁遊戲（PWA），不需要建置工具。
+This is an installable web app (PWA) with no build step.
 
-## 上傳到 GitHub Pages
+## Publish on GitHub Pages
 
-1. 在 GitHub 建立新的公開儲存庫，例如 `jump-around-taiwan`。
-2. 點 **Add file > Upload files**，把這個資料夾裡的所有檔案拖進去，包含 `icons` 資料夾，然後按 **Commit changes**。
-3. 到 **Settings > Pages**，**Source** 選 **Deploy from a branch**，分支選 `main`、資料夾選 `/ (root)`，按 **Save**。
-4. 等一兩分鐘，遊戲網址會是 `https://你的帳號.github.io/jump-around-taiwan/`。
+1. Create a public repository, for example `hop-around-taiwan`.
+2. Choose **Add file > Upload files**, drag in everything from this folder, including `icons`, and select **Commit changes**.
+3. Go to **Settings > Pages**. Set **Source** to **Deploy from a branch**, choose `main` and `/ (root)`, then select **Save**.
+4. After a minute or two, the game is at `https://YOUR-NAME.github.io/hop-around-taiwan/`.
 
-`index.html` 必須放在儲存庫最上層，不要多包一層資料夾。
+Keep `index.html` at the top level of the repository.
 
-## 安裝到手機
+Already published the earlier version? Upload these files over the old ones. `README.md`, `index.html`, `sw.js` and `manifest.webmanifest` will be replaced.
 
-- **iPhone**：用 Safari 開啟網址，點分享，選「加入主畫面」。
-- **Android**：用 Chrome 開啟網址，點開始畫面的「安裝到手機」，或從瀏覽器選單安裝。
+## Race friends
 
-## 更新遊戲
+1. One player selects **Race friends > Create a race** and shares the 4-letter code or invite link.
+2. Everyone else opens the game and joins with the code or link.
+3. The host selects **Start race**. The first player back in Tainan wins.
 
-修改 `index.html` 後，把 `sw.js` 第一行附近的 `VERSION` 加一（例如 `v1` 改成 `v2`），再上傳。手機連上網開啟遊戲時會取得新版，有時要重開一次才會看到。
+Good to know:
 
-## 檔案說明
+- Racing needs an internet connection. Solo play works offline after the first visit.
+- The host's phone runs the race, so it must stay online with the game open.
+- If the host leaves, everyone else can finish alone.
+- Players using finger controls are marked with ✋ on the results screen.
 
-| 檔案 | 用途 |
+## How racing connects
+
+Static hosting like GitHub Pages cannot relay game data, so phones connect directly with WebRTC. [PeerJS](https://peerjs.com/) and its free public cloud service help them find each other. That service has no uptime guarantee, and some mobile networks may need its relay server. For a large event, run your own [PeerServer](https://github.com/peers/peerjs-server) and pass its address to `new Peer()` in `index.html`.
+
+## Install on a phone
+
+- **iPhone:** open the game in Safari, tap Share, then choose Add to Home Screen.
+- **Android:** open the game in Chrome and select **Install on this phone**, or use the browser menu.
+
+## Update the game
+
+After changing `index.html`, raise `VERSION` near the top of `sw.js` (for example `v2` to `v3`) and upload both files. Phones get the new version the next time they open the game online, which can take one extra reopen.
+
+## Files
+
+| File | Purpose |
 | --- | --- |
-| `index.html` | 遊戲本體 |
-| `manifest.webmanifest` | App 名稱、圖示與顯示方式 |
-| `sw.js` | 離線快取 |
-| `icons/` | App 圖示 |
+| `index.html` | The game |
+| `manifest.webmanifest` | App name, icons and display settings |
+| `sw.js` | Offline support |
+| `icons/` | App icons |
